@@ -1,3 +1,5 @@
 *~
 *.hi
 *.o
+/src/client.dat
+/src/token.dat
