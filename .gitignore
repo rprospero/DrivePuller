@@ -3,3 +3,10 @@
 *.o
 /src/client.dat
 /src/token.dat
+/token.dat
+/client.dat
+/dist/
+/src/Main
+/src/Main.dyn_hi
+/src/Main.dyn_o
+/Setup.hs
