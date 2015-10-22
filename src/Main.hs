@@ -1,4 +1,4 @@
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE OverloadedStrings, TemplateHaskell #-}
 
 import Network.Google.OAuth2 (OAuth2Client(OAuth2Client),getAccessToken)
 import Network.Google.Drive (driveScopes)
@@ -23,6 +23,7 @@ import System.FilePath (splitDirectories)
 import System.Environment (getArgs)
 import Data.Monoid
 import Options.Applicative
+import Data.FileEmbed (embedStringFile)
 
 getFolder :: [Text] -> Api File
 getFolder path = do
@@ -46,7 +47,7 @@ fileNames r = map (printf (pattern r)) [start r..stop r]
 
 main' :: Runset -> IO (Either ApiError ())
 main' r = do
-  serverKey <- fromString <$> withFile "client.dat" ReadMode hGetLine
+  let serverKey = $(embedStringFile "client.dat")
   let client = OAuth2Client clientId serverKey
 
   token <- getAccessToken client driveScopes $ Just "token.dat"
